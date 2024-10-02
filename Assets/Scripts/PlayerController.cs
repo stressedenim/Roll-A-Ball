@@ -6,7 +6,6 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 1.0f;
-    public float jumpSpeed = 500
     private Rigidbody rb;
 
     void Start()
@@ -29,9 +28,5 @@ public class PlayerController : MonoBehaviour
         //add force to our rigidbody from out movement vector * speed variable
         rb.AddForce(movement * speed * Time.deltaTime);
 
-        if (Input.GetButton("jump"));
-        {
-            rb.AddForce(new Vector3 (0, jumpSpeed, 0));
-        }
     }
 }
