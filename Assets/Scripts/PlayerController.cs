@@ -8,15 +8,20 @@ public class PlayerController : MonoBehaviour
     public float speed = 1.0f;
     private Rigidbody rb;
     private int pickupCount;
+    private Timer timer;
 
     void Start()
     {
     // gets the ridgidbody component attached to this gameObject
     rb = GetComponent<Rigidbody>();
-        //run the check pickups function
-        CheckPickups();
         //gets the number of pickups in our scene
         pickupCount = GameObject.FindGameObjectsWithTag("Pickup").Length;
+        //run the check pickups function
+        CheckPickups();
+        //gets the timer object
+        timer = FindObjectOfType<Timer>();
+        //Starts the timer
+        timer.StartTimer();
     }
 
 
@@ -57,6 +62,7 @@ public class PlayerController : MonoBehaviour
     }
     private void WinGame()
     {
-        print("Yay! You Win!");
+        timer.StopTimer();
+        print("Yay! You Win. Your time was: " + timer.GetTime().ToString("F2"));
     }
 }
