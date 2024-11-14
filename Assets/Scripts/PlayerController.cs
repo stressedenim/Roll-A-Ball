@@ -14,6 +14,10 @@ public class PlayerController : MonoBehaviour
     private float pickupChunk;
     private Timer timer;
     private bool gameOver = false;
+    //Adding a reset point
+    GameObject resetPoint;
+    bool resetting = false;
+    Color originalColour;
 
     [Header("UI")]
     public GameObject inGamePanel;
@@ -45,7 +49,10 @@ public class PlayerController : MonoBehaviour
         winPanel.SetActive(false);
         //turn on our ingame panel
         inGamePanel.SetActive(true);
-    
+        //Adding a reset point
+        resetPoint = GameObject.Find("Reset Point");
+        originalColour = GetComponent<Renderer>().material.color;
+
     }
 
     void FixedUpdate()
@@ -64,6 +71,9 @@ public class PlayerController : MonoBehaviour
         //add force to our rigidbody from out movement vector * speed variable
         rb.AddForce(movement * speed * Time.deltaTime);
 
+        //Adding a reset point
+        if (resetting)
+            return;
 
     }
 
@@ -117,9 +127,37 @@ public class PlayerController : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
     }
 
+    // this void update is about respawning
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Respawn"))
+        {
+            StartCoroutine(ResetPlayer());
+        }   
+    }
+
     //temporary restart function
     public void resetGame()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+    }
+
+    public IEnumerator ResetPlayer()
+    {
+        resetting = true;
+        GetComponent<Renderer>().material.color = Color.black;
+        rb.velocity = Vector3.zero;
+        Vector3 StartPos = transform.position;
+        float resetSpeed = 2f;
+        var i = 0.0f;
+        var rate =1.0f / resetSpeed;
+        while (i < 1.0f)
+        {
+            i += Time.deltaTime * rate;
+            transform.position = Vector3.Lerp(StartPos, resetPoint.transform.position, i);
+            yield return null;
+        }
+        GetComponent<Renderer>().material.color = originalColour;
+        resetting = false;
     }
 }
