@@ -1,9 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+// i had like 15 CS0246 error messages and including the thing bellkw about the text it fixed 14 of them now i have to fix the ie numerator
 using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
+using TMPro;  // For TMP_Text
+using UnityEngine.UI; // For UI elements like Image
+//fir fixing the IEnumerator CS0246 error message
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -25,7 +25,10 @@ public class PlayerController : MonoBehaviour
     public TMP_Text timerText;
     public Image pickupImage;
     public GameObject winPanel;
-    public TMP_Text winTimeText; 
+    public TMP_Text winTimeText;
+    // adding the two new ui things i added cuyz i think thats what mading the null error coide
+    //removing the souls thing cuz i was confused
+    public TMP_Text Addition;
 
     void Start()
     {
@@ -33,7 +36,9 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         //gets the number of pickups in our scene
         pickupCount = GameObject.FindGameObjectsWithTag("Pickup").Length;
-        //assign the total amount of pickups
+        //adding this to hopefully help the error with the pickups
+        pickupText.text = "Pickups Left: " + pickupCount.ToString();
+        //assign the total amount of pickups - now souls - went back to pick ups
         totalPickups = pickupCount;
         //set pickup image fill amount to zero
         pickupImage.fillAmount = 0;
@@ -52,6 +57,7 @@ public class PlayerController : MonoBehaviour
         //Adding a reset point
         resetPoint = GameObject.Find("Reset Point");
         originalColour = GetComponent<Renderer>().material.color;
+        
 
     }
 
@@ -77,14 +83,11 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-        timerText.text = "Time: " + timer.currentTime.ToString("F2");
-    }
+    private void Update() => timerText.text = "Time: " + timer.currentTime.ToString("F2");
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Pickup"))
+        if (other.gameObject.CompareTag("Pickup"))
         {
             //destroy the collided object
             Destroy(other.gameObject);
@@ -98,7 +101,7 @@ public class PlayerController : MonoBehaviour
     }
     private void CheckPickups()
     {
-        
+
         print("Pickups left: " + pickupCount);
         pickupText.text = "Pickups left: " + pickupCount;
         if (pickupCount == 0)
@@ -112,19 +115,18 @@ public class PlayerController : MonoBehaviour
         gameOver = true;
         //stop the timer
         timer.StopTimer();
-
         //display the timer on our win time text
         winTimeText.text = "Your time was: " + timer.GetTime().ToString("F2");
-
         //Turn on our win panel
         winPanel.SetActive(true);
-
         //turn off in game panel
         inGamePanel.SetActive(false);
-
         //stop the ball from rolling
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
+        //trying to show the damn win panel only when the game is won 
+        Debug.Log("Win Game called!");  // Debug log to check if this is triggered
+
     }
 
     // this void update is about respawning
@@ -133,7 +135,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Respawn"))
         {
             StartCoroutine(ResetPlayer());
-        }   
+        }
     }
 
     //temporary restart function
@@ -150,7 +152,7 @@ public class PlayerController : MonoBehaviour
         Vector3 StartPos = transform.position;
         float resetSpeed = 2f;
         var i = 0.0f;
-        var rate =1.0f / resetSpeed;
+        var rate = 1.0f / resetSpeed;
         while (i < 1.0f)
         {
             i += Time.deltaTime * rate;
