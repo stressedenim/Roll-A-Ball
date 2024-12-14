@@ -22,8 +22,6 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Outside_CombinedMat
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _NORMALMAP
   m_InvalidKeywords: []
@@ -34,16 +32,15 @@ Material:
   stringTagMap:
     RenderType: Opaque
   disabledShaderPasses: []
-  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: fc2ef9cfa6d9f0a448ed0775fb483b2d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 92864d65726632f458414e0f5a87a80f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6dc6ba28eb9c9de409fd0a993b833310, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -63,7 +60,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: fc2ef9cfa6d9f0a448ed0775fb483b2d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:

@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     bool resetting = false;
     Color originalColour;
 
+ 
+
     [Header("UI")]
     public GameObject inGamePanel;
     public TMP_Text pickupText;
@@ -29,6 +31,7 @@ public class PlayerController : MonoBehaviour
     // adding the two new ui things i added cuyz i think thats what mading the null error coide
     //removing the souls thing cuz i was confused
     public TMP_Text Addition;
+
 
     void Start()
     {
@@ -57,7 +60,8 @@ public class PlayerController : MonoBehaviour
         //Adding a reset point
         resetPoint = GameObject.Find("Reset Point");
         originalColour = GetComponent<Renderer>().material.color;
-        
+     
+
 
     }
 
@@ -97,6 +101,7 @@ public class PlayerController : MonoBehaviour
             pickupImage.fillAmount = pickupImage.fillAmount + pickupChunk;
             //run the check pickups function
             CheckPickups();
+        
         }
     }
     private void CheckPickups()
@@ -126,17 +131,20 @@ public class PlayerController : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
         //trying to show the damn win panel only when the game is won 
         Debug.Log("Win Game called!");  // Debug log to check if this is triggered
-
+    
     }
 
     // this void update is about respawning
     private void OnCollisionEnter(Collision collision)
     {
+        // Check if the player collided with the respawn point
         if (collision.gameObject.CompareTag("Respawn"))
         {
             StartCoroutine(ResetPlayer());
         }
+
     }
+
 
     //temporary restart function
     public void resetGame()
